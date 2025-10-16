@@ -360,9 +360,7 @@ overlay.nifti <- function(x, y, z=1, w=1, col.x=gray(0:64/64),
   }
   oldpar <- par(no.readonly=TRUE)
   par(
-    mfrow=ceiling(rep(sqrt(lz),2)), oma=oma, mar=mar, bg=bg,
-    xaxt = xaxt,
-    yaxt = yaxt
+    mfrow=ceiling(rep(sqrt(lz),2)), oma=oma, mar=mar, bg=bg
   )
   if (ndim == 2) {
     x = array(x, dim = c(dim(x), 1))
@@ -375,10 +373,14 @@ overlay.nifti <- function(x, y, z=1, w=1, col.x=gray(0:64/64),
     for (z in index) {
       graphics::image(1:X, 1:Y, x[,,z], col=col.x, breaks=breaks.x,
                       zlim=zlim.x, asp=aspect, axes=axes, xlab=xlab,
-                      ylab=ylab, ...)
+                      ylab=ylab,
+                      xaxt = xaxt, yaxt = yaxt,
+                      ...)
       if (!missing(y)) {
         graphics::image(1:X, 1:Y, y[,,z], col=col.y, zlim=zlim.y, add=TRUE,
-                        axes = axes, ...)
+                        axes = axes, 
+                        xaxt = xaxt, yaxt = yaxt,
+                        ...)
       }
     }
   } else { # four-dimensional array
@@ -388,10 +390,14 @@ overlay.nifti <- function(x, y, z=1, w=1, col.x=gray(0:64/64),
     for (z in index) {
       graphics::image(1:X, 1:Y, x[,,z,w], col=col.x, breaks=breaks.x,
                       zlim=zlim.x, asp=aspect, axes=axes, xlab=xlab,
-                      ylab=ylab, ...)
+                      ylab=ylab, 
+                      xaxt = xaxt, yaxt = yaxt,
+                      ...)
       if (!missing(y)) {
         graphics::image(1:X, 1:Y, y[,,z], col=col.y, zlim=zlim.y, add=TRUE,
-                        axes = axes, ...)
+                        axes = axes, 
+                        xaxt = xaxt, yaxt = yaxt,
+                        ...)
       }
     }
   }
@@ -580,36 +586,47 @@ orthographic.nifti <- function(x, y=NULL, xyz=NULL, w=1, col=gray(0:64/64),
     }
   }
   oldpar <- par(no.readonly=TRUE)
-  par(mfrow=c(2,2), oma=oma, mar=mar, bg=bg,
-      xaxt = xaxt, yaxt = yaxt)
+  par(mfrow=c(2,2), oma=oma, mar=mar, bg=bg)
   if (all(is.na(W))) {
     ## Three-dimensional array
     graphics::image(1:X, 1:Z, x[,xyz[2],], col=col, zlim=zlim, breaks=breaks,
                     asp=x@pixdim[4]/x@pixdim[2],
-                    xlab=ylab, ylab=xlab, axes=axes, ...)
+                    xlab=ylab, ylab=xlab, axes=axes, 
+                    xaxt = xaxt, yaxt = yaxt,
+                    ...)
     if (! is.null(y)) {
       graphics::image(1:X, 1:Z, y[,xyz[2],], col=col.y, zlim=zlim.y, add=TRUE,
-                      axes = axes, ...)
+                      axes = axes,
+                      xaxt = xaxt, yaxt = yaxt,
+                      ...)
     }
     if (crosshairs) {
       abline(h=xyz[3], v=xyz[1], col=col.crosshairs)
     }
     graphics::image(1:Y, 1:Z, x[xyz[1],,], col=col, breaks=breaks,
                     asp=x@pixdim[4]/x@pixdim[3],
-                    xlab=xlab, ylab=ylab, axes=axes, ...)
+                    xlab=xlab, ylab=ylab, axes=axes, 
+                    xaxt = xaxt, yaxt = yaxt,
+                    ...)
     if (! is.null(y)) {
       graphics::image(1:Y, 1:Z, y[xyz[1],,], col=col.y, zlim=zlim.y, add=TRUE,
-                      axes = axes, ...)
+                      axes = axes, 
+                      xaxt = xaxt, yaxt = yaxt,
+                      ...)
     }
     if (crosshairs) {
       abline(h=xyz[3], v=xyz[2], col=col.crosshairs)
     }
     graphics::image(1:X, 1:Y, x[,,xyz[3]], col=col, breaks=breaks,
                     asp=x@pixdim[3]/x@pixdim[2],
-                    xlab=xlab, ylab=ylab, axes=axes, ...)
+                    xlab=xlab, ylab=ylab, axes=axes, 
+                    xaxt = xaxt, yaxt = yaxt,
+                    ...)
     if (! is.null(y)) {
       graphics::image(1:X, 1:Y, y[,,xyz[3]], col=col.y, zlim=zlim.y, add=TRUE,
-                      axes = axes, ...)
+                      axes = axes, 
+                      xaxt = xaxt, yaxt = yaxt,
+                      ...)
     }
     if (crosshairs) {
       abline(h=xyz[2], v=xyz[1], col=col.crosshairs)
@@ -621,30 +638,42 @@ orthographic.nifti <- function(x, y=NULL, xyz=NULL, w=1, col=gray(0:64/64),
     }
     graphics::image(1:X, 1:Z, x[,xyz[2],,w], col=col, breaks=breaks,
                     asp=x@pixdim[4]/x@pixdim[2],
-                    xlab=ylab, ylab=xlab, axes=axes, ...)
+                    xlab=ylab, ylab=xlab, axes=axes, 
+                    xaxt = xaxt, yaxt = yaxt,
+                    ...)
     if (! is.null(y)) {
       graphics::image(1:X, 1:Z, y[,xyz[2],], col=col.y, zlim=zlim.y, add=TRUE,
-                      axes = axes, ...)
+                      axes = axes, 
+                      xaxt = xaxt, yaxt = yaxt,
+                      ...)
     }
     if (crosshairs) {
       abline(h=xyz[3], v=xyz[1], col=col.crosshairs)
     }
     graphics::image(1:Y, 1:Z, x[xyz[1],,,w], col=col, breaks=breaks,
                     asp=x@pixdim[4]/x@pixdim[3],
-                    xlab=xlab, ylab=ylab, axes=axes, ...)
+                    xlab=xlab, ylab=ylab, axes=axes, 
+                    xaxt = xaxt, yaxt = yaxt,
+                    ...)
     if (! is.null(y)) {
       graphics::image(1:Y, 1:Z, y[xyz[1],,], col=col.y, zlim=zlim.y, add=TRUE,
-                      axes = axes, ...)
+                      axes = axes, 
+                      xaxt = xaxt, yaxt = yaxt,
+                      ...)
     }
     if (crosshairs) {
       abline(h=xyz[3], v=xyz[2], col=col.crosshairs)
     }
     graphics::image(1:X, 1:Y, x[,,xyz[3],w], col=col, breaks=breaks,
                     asp=x@pixdim[3]/x@pixdim[2],
-                    xlab=xlab, ylab=ylab, axes=axes, ...)
+                    xlab=xlab, ylab=ylab, axes=axes, 
+                    xaxt = xaxt, yaxt = yaxt,
+                    ...)
     if (! is.null(y)) {
       graphics::image(1:X, 1:Y, y[,,xyz[3]], col=col.y, zlim=zlim.y, add=TRUE,
-                      axes = axes, ...)
+                      axes = axes, 
+                      xaxt = xaxt, yaxt = yaxt,
+                      ...)
     }
     if (crosshairs) {
       abline(h=xyz[2], v=xyz[1], col=col.crosshairs)
@@ -653,7 +682,8 @@ orthographic.nifti <- function(x, y=NULL, xyz=NULL, w=1, col=gray(0:64/64),
   if (! is.null(text)) {
     ## Add user-supplied text to the "fourth" plot
     graphics::image(1:64, 1:64, matrix(NA, 64, 64), xlab="", ylab="",
-                    axes=FALSE)
+                    axes=FALSE,
+                    xaxt = xaxt, yaxt = yaxt)
     text(32, 32, text, col=text.color, cex=text.cex)
   }
   par(oldpar)
