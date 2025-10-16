@@ -41,7 +41,10 @@ image.nifti <- function(x, z=1, w=1, col=gray(0:64/64),
                         plane=c("axial", "coronal", "sagittal"),
                         plot.type=c("multiple", "single"), zlim=NULL,
                         xlab="", ylab="", axes=FALSE, oma=rep(0,4),
-                        mar=rep(0,4), bg="black", ...) {
+                        mar=rep(0,4), bg="black", 
+                        xaxt = "n",
+                        yaxt = "n",
+                        ...) {
   switch(plane[1],
          "axial" = {
            aspect <- x@pixdim[3] / x@pixdim[2]
@@ -105,19 +108,28 @@ image.nifti <- function(x, z=1, w=1, col=gray(0:64/64),
   par(mfrow=ceiling(rep(sqrt(lz),2)), oma=oma, mar=mar, bg=bg)
   if (all(is.na(Z))) { # two-dimensional matrix
     graphics::image(1:X, 1:Y, x, col=col, breaks=breaks, asp=aspect,
-                    axes=axes, xlab=xlab, ylab=ylab, ...)
+                    axes=axes, xlab=xlab, ylab=ylab, 
+                    xaxt = xaxt,
+                    yaxt = yaxt,
+                    ...)
   } else {
     if (all(is.na(W))) { # three-dimensional array
       for (z in index) {
         graphics::image(1:X, 1:Y, x[,,z], col=col, breaks=breaks,
-                        asp=aspect, axes=axes, xlab=xlab, ylab=ylab, ...)
+                        asp=aspect, axes=axes, xlab=xlab, ylab=ylab, 
+                        xaxt = xaxt,
+                        yaxt = yaxt,
+                        ...)
       }
     } else { # four-dimensional array
       if (any(w < 1 | w > W))
         stop("volume \"w\" out of range")
       for (z in index) {
         graphics::image(1:X, 1:Y, x[,,z,w], col=col, breaks=breaks,
-                        asp=aspect, axes=axes, xlab=xlab, ylab=ylab, ...)
+                        asp=aspect, axes=axes, xlab=xlab, ylab=ylab, 
+                        xaxt = xaxt,
+                        yaxt = yaxt,
+                        ...)
       }
     }
   }
@@ -154,6 +166,10 @@ image.nifti <- function(x, z=1, w=1, col=gray(0:64/64),
 #' @param oma is the size of the outer margins in the \code{par} function.
 #' @param mar is the number of lines of margin in the \code{par} function.
 #' @param bg is the background color in the \code{par} function.
+#' @param xaxt A character which specifies the x axis type. `"n"` means none.
+#' See [graphics::par()]
+#' @param yaxt A character which specifies the y axis type. `"n"` means none.
+#' See [graphics::par()]
 #' @param \dots other arguments to the \code{image} function may be provided
 #' here.
 #' @section Methods: \describe{ \item{x = "ANY"}{Generic function: see
@@ -218,6 +234,10 @@ setMethod("image", signature(x="afni"),
 #' @param bg is the background color in the \code{par} function.
 #' @param NA.x Set any values of 0 in \code{x} to \code{NA}
 #' @param NA.y Set any values of 0 in \code{y} to \code{NA} 
+#' @param xaxt A character which specifies the x axis type. `"n"` means none.
+#' See [graphics::par()]
+#' @param yaxt A character which specifies the y axis type. `"n"` means none.
+#' See [graphics::par()]
 #' @param \dots other arguments to the \code{image} function may be provided
 #' here.
 #' @section Methods: 
@@ -238,7 +258,9 @@ overlay.nifti <- function(x, y, z=1, w=1, col.x=gray(0:64/64),
                           xlab="", ylab="", axes=FALSE, oma=rep(0,4),
                           mar=rep(0,4), bg="black",
                           NA.x = FALSE,
-                          NA.y = FALSE,                          
+                          NA.y = FALSE,      
+                          xaxt = "n",
+                          yaxt = "n",                          
                           ...) {
   switch(plane[1],
          "axial" = {
@@ -337,7 +359,11 @@ overlay.nifti <- function(x, y, z=1, w=1, col.x=gray(0:64/64),
     stop("slice \"z\" out of range")
   }
   oldpar <- par(no.readonly=TRUE)
-  par(mfrow=ceiling(rep(sqrt(lz),2)), oma=oma, mar=mar, bg=bg)
+  par(
+    mfrow=ceiling(rep(sqrt(lz),2)), oma=oma, mar=mar, bg=bg,
+    xaxt = xaxt,
+    yaxt = yaxt
+  )
   if (ndim == 2) {
     x = array(x, dim = c(dim(x), 1))
     z = 1
@@ -480,6 +506,10 @@ setMethod("overlay", signature(x="afni", y="array"),
 #' @param text.color is the color of the user-specified text (default =
 #' \dQuote{white}.
 #' @param text.cex is the size of the user-specified text (default = 2).
+#' @param xaxt A character which specifies the x axis type. `"n"` means none.
+#' See [graphics::par()]
+#' @param yaxt A character which specifies the y axis type. `"n"` means none.
+#' See [graphics::par()]
 #' @param \dots other arguments to the \code{image} function may be provided
 #' here.
 #' @section Methods: \describe{ \item{x = "afni"}{Produce orthographic display
@@ -507,7 +537,10 @@ orthographic.nifti <- function(x, y=NULL, xyz=NULL, w=1, col=gray(0:64/64),
                                xlab="", ylab="", axes=FALSE,
                                oma=rep(0,4), mar=rep(0,4), bg="black",
                                text=NULL, text.color="white",
-                               text.cex=2, ...) {
+                               text.cex=2, 
+                               xaxt = "n",
+                               yaxt = "n",
+                               ...) {
   if (! is.null(y)) {
     ## both volumes must have the same dimension
     if (! all(dim(x)[1:3] == dim(y)[1:3])) {
@@ -547,7 +580,8 @@ orthographic.nifti <- function(x, y=NULL, xyz=NULL, w=1, col=gray(0:64/64),
     }
   }
   oldpar <- par(no.readonly=TRUE)
-  par(mfrow=c(2,2), oma=oma, mar=mar, bg=bg)
+  par(mfrow=c(2,2), oma=oma, mar=mar, bg=bg,
+      xaxt = xaxt, yaxt = yaxt)
   if (all(is.na(W))) {
     ## Three-dimensional array
     graphics::image(1:X, 1:Z, x[,xyz[2],], col=col, zlim=zlim, breaks=breaks,
