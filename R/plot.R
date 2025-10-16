@@ -238,6 +238,10 @@ setMethod("image", signature(x="afni"),
 #' See [graphics::par()]
 #' @param yaxt A character which specifies the y axis type. `"n"` means none.
 #' See [graphics::par()]
+#' @param xaxs The style of axis interval calculation to be used for the x-axis.
+#' See [graphics::par()]
+#' @param yaxs The style of axis interval calculation to be used for the y-axis.
+#' See [graphics::par()]
 #' @param \dots other arguments to the \code{image} function may be provided
 #' here.
 #' @section Methods: 
@@ -260,7 +264,9 @@ overlay.nifti <- function(x, y, z=1, w=1, col.x=gray(0:64/64),
                           NA.x = FALSE,
                           NA.y = FALSE,      
                           xaxt = "n",
-                          yaxt = "n",                          
+                          yaxt = "n", 
+                          xaxs = "r",
+                          yaxs = "r",
                           ...) {
   switch(plane[1],
          "axial" = {
@@ -375,11 +381,13 @@ overlay.nifti <- function(x, y, z=1, w=1, col.x=gray(0:64/64),
                       zlim=zlim.x, asp=aspect, axes=axes, xlab=xlab,
                       ylab=ylab,
                       xaxt = xaxt, yaxt = yaxt,
+                      xaxs = xaxs, yaxs = yaxs,
                       ...)
       if (!missing(y)) {
         graphics::image(1:X, 1:Y, y[,,z], col=col.y, zlim=zlim.y, add=TRUE,
                         axes = axes, 
                         xaxt = xaxt, yaxt = yaxt,
+                        xaxs = xaxs, yaxs = yaxs,
                         ...)
       }
     }
@@ -392,11 +400,13 @@ overlay.nifti <- function(x, y, z=1, w=1, col.x=gray(0:64/64),
                       zlim=zlim.x, asp=aspect, axes=axes, xlab=xlab,
                       ylab=ylab, 
                       xaxt = xaxt, yaxt = yaxt,
+                      xaxs = xaxs, yaxs = yaxs,
                       ...)
       if (!missing(y)) {
         graphics::image(1:X, 1:Y, y[,,z], col=col.y, zlim=zlim.y, add=TRUE,
                         axes = axes, 
                         xaxt = xaxt, yaxt = yaxt,
+                        xaxs = xaxs, yaxs = yaxs,
                         ...)
       }
     }

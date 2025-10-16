@@ -40,6 +40,8 @@ overlay.nifti(
   NA.y = FALSE,
   xaxt = "n",
   yaxt = "n",
+  xaxs = "r",
+  yaxs = "r",
   ...
 )
 
@@ -66,6 +68,8 @@ overlay(x, y, ...)
   NA.y = FALSE,
   xaxt = "n",
   yaxt = "n",
+  xaxs = "r",
+  yaxs = "r",
   ...
 )
 
@@ -90,6 +94,8 @@ overlay(x, y, ...)
   NA.y = FALSE,
   xaxt = "n",
   yaxt = "n",
+  xaxs = "r",
+  yaxs = "r",
   ...
 )
 
@@ -114,6 +120,8 @@ overlay(x, y, ...)
   NA.y = FALSE,
   xaxt = "n",
   yaxt = "n",
+  xaxs = "r",
+  yaxs = "r",
   ...
 )
 
@@ -138,6 +146,8 @@ overlay(x, y, ...)
   NA.y = FALSE,
   xaxt = "n",
   yaxt = "n",
+  xaxs = "r",
+  yaxs = "r",
   ...
 )
 
@@ -162,6 +172,8 @@ overlay(x, y, ...)
   NA.y = FALSE,
   xaxt = "n",
   yaxt = "n",
+  xaxs = "r",
+  yaxs = "r",
   ...
 )
 
@@ -220,6 +232,12 @@ matrix (left-to-right, top-to-bottom), or a single slice.}
 See [graphics::par()]}
 
 \item{yaxt}{A character which specifies the y axis type. `"n"` means none.
+See [graphics::par()]}
+
+\item{xaxs}{The style of axis interval calculation to be used for the x-axis.
+See [graphics::par()]}
+
+\item{yaxs}{The style of axis interval calculation to be used for the y-axis.
 See [graphics::par()]}
 
 \item{\dots}{other arguments to the \code{image} function may be provided
