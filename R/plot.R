@@ -352,7 +352,7 @@ overlay.nifti <- function(x, y, z=1, w=1, col.x=gray(0:64/64),
                       ylab=ylab, ...)
       if (!missing(y)) {
         graphics::image(1:X, 1:Y, y[,,z], col=col.y, zlim=zlim.y, add=TRUE,
-                        axes = axes)
+                        axes = axes, ...)
       }
     }
   } else { # four-dimensional array
@@ -365,7 +365,7 @@ overlay.nifti <- function(x, y, z=1, w=1, col.x=gray(0:64/64),
                       ylab=ylab, ...)
       if (!missing(y)) {
         graphics::image(1:X, 1:Y, y[,,z], col=col.y, zlim=zlim.y, add=TRUE,
-                        axes = axes)
+                        axes = axes, ...)
       }
     }
   }
@@ -555,7 +555,7 @@ orthographic.nifti <- function(x, y=NULL, xyz=NULL, w=1, col=gray(0:64/64),
                     xlab=ylab, ylab=xlab, axes=axes, ...)
     if (! is.null(y)) {
       graphics::image(1:X, 1:Z, y[,xyz[2],], col=col.y, zlim=zlim.y, add=TRUE,
-                      axes = axes)
+                      axes = axes, ...)
     }
     if (crosshairs) {
       abline(h=xyz[3], v=xyz[1], col=col.crosshairs)
@@ -565,7 +565,7 @@ orthographic.nifti <- function(x, y=NULL, xyz=NULL, w=1, col=gray(0:64/64),
                     xlab=xlab, ylab=ylab, axes=axes, ...)
     if (! is.null(y)) {
       graphics::image(1:Y, 1:Z, y[xyz[1],,], col=col.y, zlim=zlim.y, add=TRUE,
-                      axes = axes)
+                      axes = axes, ...)
     }
     if (crosshairs) {
       abline(h=xyz[3], v=xyz[2], col=col.crosshairs)
@@ -575,7 +575,7 @@ orthographic.nifti <- function(x, y=NULL, xyz=NULL, w=1, col=gray(0:64/64),
                     xlab=xlab, ylab=ylab, axes=axes, ...)
     if (! is.null(y)) {
       graphics::image(1:X, 1:Y, y[,,xyz[3]], col=col.y, zlim=zlim.y, add=TRUE,
-                      axes = axes)
+                      axes = axes, ...)
     }
     if (crosshairs) {
       abline(h=xyz[2], v=xyz[1], col=col.crosshairs)
@@ -590,7 +590,7 @@ orthographic.nifti <- function(x, y=NULL, xyz=NULL, w=1, col=gray(0:64/64),
                     xlab=ylab, ylab=xlab, axes=axes, ...)
     if (! is.null(y)) {
       graphics::image(1:X, 1:Z, y[,xyz[2],], col=col.y, zlim=zlim.y, add=TRUE,
-                      axes = axes)
+                      axes = axes, ...)
     }
     if (crosshairs) {
       abline(h=xyz[3], v=xyz[1], col=col.crosshairs)
@@ -600,7 +600,7 @@ orthographic.nifti <- function(x, y=NULL, xyz=NULL, w=1, col=gray(0:64/64),
                     xlab=xlab, ylab=ylab, axes=axes, ...)
     if (! is.null(y)) {
       graphics::image(1:Y, 1:Z, y[xyz[1],,], col=col.y, zlim=zlim.y, add=TRUE,
-                      axes = axes)
+                      axes = axes, ...)
     }
     if (crosshairs) {
       abline(h=xyz[3], v=xyz[2], col=col.crosshairs)
@@ -610,7 +610,7 @@ orthographic.nifti <- function(x, y=NULL, xyz=NULL, w=1, col=gray(0:64/64),
                     xlab=xlab, ylab=ylab, axes=axes, ...)
     if (! is.null(y)) {
       graphics::image(1:X, 1:Y, y[,,xyz[3]], col=col.y, zlim=zlim.y, add=TRUE,
-                      axes = axes)
+                      axes = axes, ...)
     }
     if (crosshairs) {
       abline(h=xyz[2], v=xyz[1], col=col.crosshairs)
